@@ -1,17 +1,22 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux'
+import { handleInitialData } from '../actions/shared';
 
 class DeckList extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(handleInitialData())
+  }
+
   render() {
-    const { loading } = this.props
+    const { loading, decks } = this.props
     return(
       <View>
         {
-          loading && <Text>Loading...</Text>
+          loading && <ActivityIndicator size="large" />
         }
         {
-          !loading && <Text>{JSON.stringify(this.props.decks, null, 2)}</Text>
+          !loading && <Text>{JSON.stringify(decks, null, 2)}</Text>
         }
       </View>
     )
@@ -19,10 +24,11 @@ class DeckList extends React.Component {
 }
 
 function mapStateToProps({decks}) {
-  console.log('mapStateToProps decks:', decks)
+  console.log('mapStateToProps - decks:', decks)
   return {
     decks: decks,
     loading: Object.keys(decks).length === 0 ? true : false
   }
 }
+
 export default connect(mapStateToProps)(DeckList)

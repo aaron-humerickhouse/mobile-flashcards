@@ -26,16 +26,6 @@ const INITIAL_DATA = {
   }
 }
 
-// export async function setInitialData() {
-//   try {
-//     await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(INITIAL_DATA))
-//     return INITIAL_DATA
-//   } catch (error) {
-//     // Error retrieving data
-//     console.log(error.message);
-//   }
-// }
-
 export function setInitialData() {
   return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(INITIAL_DATA))
     .then((_) => {
@@ -44,16 +34,6 @@ export function setInitialData() {
       })
     })
 }
-
-// export async function getDecks() {
-//   try {
-//     const decks = await AsyncStorage.getItem(DECKS_STORAGE_KEY)
-//     return JSON.parse(decks)
-//   } catch (error) {
-//     // Error retrieving data
-//     console.log(error.message);
-//   }
-// }
 
 export function getDecks() {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)

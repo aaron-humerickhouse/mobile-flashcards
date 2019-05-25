@@ -1,13 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import DeckList from './../components/deckList'
-import { handleInitialData } from '../actions/shared';
-import { connect } from 'react-redux';
 
 class DeckListScreen extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(handleInitialData())
-  }
 
   render() {
     return(
@@ -19,4 +14,4 @@ class DeckListScreen extends React.Component {
   }
 }
 
-export default connect()(DeckListScreen)
+export default DeckListScreen
