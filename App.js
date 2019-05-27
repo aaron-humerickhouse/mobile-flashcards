@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import rootReducer from './app/reducers'
 import middleware from './app/middleware'
 import DeckListScreen from './app/screens/deckListScreen'
+import { Container } from 'native-base'
 
 const store = createStore(rootReducer, middleware)
 
@@ -12,9 +13,9 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
+        <Container style={styles.container}>
           <DeckListScreen />
-        </View>
+        </Container>
       </Provider>
     );
   }
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center',
   },
 });
