@@ -6,10 +6,12 @@ import rootReducer from './app/reducers'
 import middleware from './app/middleware'
 import DeckListScreen from './app/screens/deckListScreen'
 
+const store = createStore(rootReducer, middleware)
+
 class App extends React.Component {
   render() {
     return (
-      <Provider store={createStore(rootReducer, middleware)}>
+      <Provider store={store}>
         <View style={styles.container}>
           <DeckListScreen />
         </View>
