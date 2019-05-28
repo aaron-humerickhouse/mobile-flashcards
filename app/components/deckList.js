@@ -3,7 +3,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Container } from 'native-base'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared';
-import Deck from './deck'
+import Deck from './deckCard'
 
 class DeckList extends React.Component {
   componentDidMount() {

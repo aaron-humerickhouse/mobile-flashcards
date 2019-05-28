@@ -1,24 +1,18 @@
 import React from 'react'
 import { StyleSheet } from 'react-native';
 import DeckList from './../components/deckList'
-import { Container, Title, Left, Right, Body, Header, Content } from 'native-base'
+import {connect} from 'react-redux'
+import { setHeader } from '../actions/header';
 
 class DeckListScreen extends React.Component {
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch(setHeader('Deck List'))
+  }
 
   render() {
     return(
-      <Container style={styles.container}>
-        <Header>
-          <Left/>
-          <Body>
-            <Title>Deck List</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Content>
-          <DeckList />
-        </Content>
-      </Container>
+      <DeckList />
     )
   }
 }
@@ -31,4 +25,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default DeckListScreen
+export default connect()(DeckListScreen)

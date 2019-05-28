@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import rootReducer from './app/reducers'
 import middleware from './app/middleware'
 import DeckListScreen from './app/screens/deckListScreen'
-import { Container } from 'native-base'
+import Header from './app/components/header'
+import { Container, Content } from 'native-base'
 
 const store = createStore(rootReducer, middleware)
 
@@ -14,7 +15,10 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <Container style={styles.container}>
-          <DeckListScreen />
+          <Header />
+          <Content>
+            <DeckListScreen />
+          </Content>
         </Container>
       </Provider>
     );
