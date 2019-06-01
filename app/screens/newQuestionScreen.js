@@ -37,7 +37,7 @@ class NewDeckScreen extends React.Component {
   }
 
   handleSubmit = () => {
-    const {id, dispatch, navigation} = this.props
+    const {id, dispatch, navigation, deck} = this.props
     const {newQuestion, newAnswer} = this.state
 
     if(this.questionPresent()) {
@@ -53,7 +53,7 @@ class NewDeckScreen extends React.Component {
       dispatch(handleAddQuestion({
         question: newQuestion.text,
         answer: newAnswer.text
-      }, id))
+      }, id, deck.questions))
       navigation.navigate('DeckScreen', { params: {id: id}})
     }
   }

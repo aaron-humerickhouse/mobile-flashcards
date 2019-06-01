@@ -1,4 +1,4 @@
-import { getDecks as apiGetDecks, newDeck } from '../services/api'
+import { getDecks as apiGetDecks, newDeck, updateQuestions} from '../services/api'
 
 export const GET_DECKS = 'GET_DECKS'
 export const ADD_DECK = 'ADD_DECK'
@@ -49,11 +49,12 @@ export function addQuestion(question, id) {
   }
 }
 
-export function handleAddQuestion(question, id) {
+export function handleAddQuestion(question, id, questions) {
+  questions = questions.concat(question)
   return (dispatch) => {
-    return newQuestion(question, id)
-      .then((question) => {
-        dispatch(addQuestion(JSON.parse(question)))
+    return updateQuestions(questions, id)
+      .then((_) => {
+        dispatch(addQuestion(question, id))
       })
   }
 }
