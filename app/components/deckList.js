@@ -9,14 +9,14 @@ class DeckList extends React.Component {
   render() {
     const { loading, decks } = this.props
     return(
-      <Container style={styles.container}>
+      <View style={styles.container}>
         {
           loading && <ActivityIndicator size="large" />
         }
         {
           !loading && Object.keys(decks).map( id => <DeckCard key={id} id={id} navigation={this.props.navigation}/>)
         }
-      </Container>
+      </View>
     )
   }
 }

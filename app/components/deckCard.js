@@ -17,30 +17,13 @@ class DeckCard extends React.Component {
     const { deck } = this.props
 
     return(
-
       <Card style={styles.card}>
-        {/* <CardItem onPress={() => navigation.navigate(
-          'DeckScreen',
-          { id: id}
-        )}> */}
-        <CardItem>
+        <CardItem button onPress={() => this.navigateToDeckScreen()}>
           <Body style={styles['card-body']}>
-          {/* <Button onPress={() => {
-        Alert.alert('You tapped the button!');
-      }}
-      > */}
-
-            <Button
-              onPress={
-                () => this.navigateToDeckScreen()
-              }
-            >
               <Text>{deck['title']}</Text>
-            </Button>
-
           </Body>
         </CardItem>
-        </Card>
+      </Card>
     )
   }
 }
