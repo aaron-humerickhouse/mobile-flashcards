@@ -53,21 +53,22 @@ class NewDeckScreen extends React.Component {
   }
 
   render() {
+    const { error } = this.state
+
     return(
         <View  style={styles.container}>
           <H1>New Deck</H1>
           <Item regular
             style={styles.input}
-            error={this.state.error !== null}
-            regular={this.state.error === null}
+            error={error !== null}
           >
             <Input
               placeholder='Deck Title'
               onChangeText={text => this.handleTitleChange(text)}
             />
-            {!!this.state.error && <Icon type="FontAwesome" name='times-circle' style={styles.error}/>}
+            {!!error && <Icon type="FontAwesome" name='times-circle' style={styles.error}/>}
           </Item>
-          {!!this.state.error && <Text style={styles.error}>{this.state.error}</Text>}
+          {!!error && <Text style={styles.error}>{error}</Text>}
           <Button primary disabled={this.buttonDisabled()} style={styles.button} onPress={() => this.handleSubmit() }>
             <Text>Add Deck</Text>
           </Button>
