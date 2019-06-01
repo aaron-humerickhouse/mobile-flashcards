@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native';
 import { Textarea, Button, View, H1, Text, Input, Icon, Form, Item } from 'native-base'
 import {connect} from 'react-redux'
+import { addQuestion } from './../actions/decks'
 
 class NewDeckScreen extends React.Component {
   static navigationOptions = {
@@ -36,34 +37,37 @@ class NewDeckScreen extends React.Component {
   }
 
   handleSubmit = () => {
-    // const {dispatch, navigation} = this.props
-    // const { newDeckTitle } = this.state
+    const {id, dispatch, navigation} = this.props
+    const {newQuestion, newAnswer} = this.state
 
-    console.log('question: ', this.state.newQuestion.text)
-    console.log('answer: ', this.state.newAnswer.text)
-    // if(this.nameTaken()) {
-    //   this.setState(() => {
-    //     return {
-    //       error: 'Failed to save: deck name already taken.'
-    //     }
-    //   })
-    // } else {
-    //   dispatch(addDeck(newDeckTitle))
-    //   navigation.navigate('DeckScreen')
-    // }
+    console.log('question: ', newQuestion.text)
+    console.log('answer: ', newAnswer.text)
+    if(this.questionPresent()) {
+      this.setState(() => {
+        return {
+          error: 'Failed to save: question already included.'
+        }
+      })
+    } else {
+      dispatch(addQuestion({
+        question: newQuestion.text,
+        answer: newAnswer.text
+      }, id))
+      navigation.navigate('DeckScreen', { params: {id: id}})
+    }
   }
 
-  nameTaken = () => {
-    const {decks} = this.props
-    const { newDeckTitle } = this.state
+  questionPresent = () => {
+    const {deck} = this.props
+    const { newQuestion } = this.state
 
-    return Object.keys(decks).filter(key => {
-      return key.toLowerCase() === newDeckTitle.toLowerCase()
+    return deck.questions.filter(question => {
+      return question.question.toLowerCase() === newQuestion.text.toLowerCase()
     }).length > 0
   }
 
   render() {
-    const { error } = this.state
+    const { newQuestion } = this.state
 
     return(
         <View  style={styles.container}>
@@ -73,6 +77,7 @@ class NewDeckScreen extends React.Component {
             placeholder='Question Text'
             onChangeText={text => this.handleFieldChange('newQuestion', text)}
             style={styles.input}
+            error={!!newQuestion.error}
           />
 
           <Textarea rowSpan={3} bordered
@@ -111,9 +116,11 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapStateToProps({}, props) {
+function mapStateToProps({decks}, props) {
+  const id = props.navigation.state.params.id
   return {
-    id: props.navigation.state.params.id
+    deck: decks[id],
+    id: id
   }
 }
 

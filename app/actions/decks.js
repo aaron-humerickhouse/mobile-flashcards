@@ -2,6 +2,7 @@ import { getDecks as apiGetDecks, newDeck } from '../services/api'
 
 export const GET_DECKS = 'GET_DECKS'
 export const ADD_DECK = 'ADD_DECK'
+export const ADD_QUESTION = 'ADD_QUESTION'
 
 export function getDecks(decks) {
   return {
@@ -36,6 +37,23 @@ export function handleAddDeck() {
     return newDeck(deck)
       .then((deck) => {
         dispatch(addDeck(JSON.parse(deck)))
+      })
+  }
+}
+
+export function addQuestion(question, id) {
+  return {
+    type: ADD_QUESTION,
+    question: question,
+    deck: id
+  }
+}
+
+export function handleAddQuestion(question) {
+  return (dispatch) => {
+    return newQuestion(question)
+      .then((question) => {
+        dispatch(addQuestion(JSON.parse(question)))
       })
   }
 }
