@@ -3,13 +3,9 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Container } from 'native-base'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared';
-import Deck from './deckCard'
+import DeckCard from './deckCard'
 
 class DeckList extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(handleInitialData())
-  }
-
   render() {
     const { loading, decks } = this.props
     return(
@@ -18,7 +14,7 @@ class DeckList extends React.Component {
           loading && <ActivityIndicator size="large" />
         }
         {
-          !loading && Object.keys(decks).map( id => <Deck key={id} id={id} />)
+          !loading && Object.keys(decks).map( id => <DeckCard key={id} id={id} navigation={this.props.navigation}/>)
         }
       </Container>
     )
