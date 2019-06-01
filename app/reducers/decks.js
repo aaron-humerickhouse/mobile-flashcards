@@ -4,6 +4,8 @@ export default function decks(state = {}, action) {
   switch(action.type) {
     case GET_DECKS: {
       const { decks } = action
+      console.log('decks: ', decks)
+
       return {
           ...state,
           ...decks
@@ -11,9 +13,10 @@ export default function decks(state = {}, action) {
     }
     case ADD_DECK: {
       const {deck} = action
+      console.log('deck: ', deck)
       return {
         ...state,
-        ...deck
+        [deck.title]: deck
       }
     }
     case ADD_QUESTION: {

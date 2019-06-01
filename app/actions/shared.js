@@ -3,7 +3,7 @@ import { handleGetDecks } from '../actions/decks'
 
 export function handleInitialData() {
   return (dispatch) => {
-    return setInitialData().then(decks => {
+    return setInitialData().then(() => {
       dispatch(handleGetDecks())
     })
   }

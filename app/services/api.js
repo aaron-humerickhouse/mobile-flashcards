@@ -27,12 +27,27 @@ const INITIAL_DATA = {
 }
 
 export function setInitialData() {
-  return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(INITIAL_DATA))
-    .then((_) => {
-      return new Promise((res,rej) => {
-        res(INITIAL_DATA)
+  return getDecks()
+    // If present return decks
+    .then(decks => { return decks })
+
+    //Otherwise set with initial data
+    .catch(()=>{
+      AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(INITIAL_DATA))
+        .then((_) => {
+          return new Promise((res,rej) => {
+            res(INITIAL_DATA)
+          })
+        })
       })
-    })
+
+    // //Debugging to reset async storage
+    // return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(INITIAL_DATA))
+    //   .then((_) => {
+    //     return new Promise((res,rej) => {
+    //       res(INITIAL_DATA)
+    //     })
+    //   })
 }
 
 export function getDecks() {
@@ -42,9 +57,10 @@ export function getDecks() {
     })
 }
 
-export function newDeck(deck) {
+export function newDeck(key, deck) {
+  console.log('api newDeck deck: ', deck)
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-    deck
+    [key]: deck
   }))
     .then((_) => {
       return deck

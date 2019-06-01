@@ -23,18 +23,18 @@ export function handleGetDecks() {
 export function addDeck(deck) {
   return {
     type: ADD_DECK,
-    deck: {
-      [deck]: {
-        title: deck,
-        questions: []
-      }
-    }
+    deck
   }
 }
 
-export function handleAddDeck(deck) {
+export function handleAddDeck(title) {
+  deck = {
+    title: title,
+    questions: []
+  }
+
   return (dispatch) => {
-    return newDeck(deck)
+    return newDeck(title, deck)
       .then((deck) => {
         dispatch(addDeck(deck))
       })
