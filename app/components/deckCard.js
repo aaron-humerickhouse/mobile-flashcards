@@ -19,7 +19,7 @@ class DeckCard extends React.Component {
     return(
       <Card style={styles.card}>
         <CardItem button onPress={() => this.navigateToDeckScreen()}>
-          <Body style={styles['card-body']}>
+          <Body style={styles.cardBody}>
               <Text>{deck['title']}</Text>
           </Body>
         </CardItem>
@@ -35,19 +35,16 @@ function mapStateToProps({decks}, {id}) {
 }
 
 const styles = StyleSheet.create({
-  'card-body': {
+  cardBody: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 30
   },
-  'card': {
+  card: {
     width: '90%',
     marginTop: 10,
     marginBottom: 10
-  },
-  'button': {
-    color: '#000099'
   }
 })
 

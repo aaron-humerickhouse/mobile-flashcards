@@ -1,6 +1,6 @@
 import React from 'react'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { Container } from 'native-base'
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { Card, CardItem, Body, Icon, Text } from 'native-base'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared';
 import DeckCard from './deckCard'
@@ -10,6 +10,15 @@ class DeckList extends React.Component {
     const { loading, decks } = this.props
     return(
       <View style={styles.container}>
+        <Card style={styles.card}>
+          <CardItem button>
+            <Body style={styles.cardBody}>
+              <Icon type='FontAwesome' name='plus-circle' style={{margin: 2}}/>
+              <Text>Add Deck</Text>
+            </Body>
+          </CardItem>
+        </Card>
+
         {
           loading && <ActivityIndicator size="large" />
         }
@@ -33,7 +42,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 20
+    paddingTop: 20,
+    flexDirection: 'column'
+  },
+  cardBody: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    padding: 30
+  },
+  card: {
+    width: '90%',
+    marginTop: 10,
+    marginBottom: 10
   }
 })
 
