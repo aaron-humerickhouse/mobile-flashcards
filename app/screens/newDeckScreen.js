@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native';
-import { Content, Button, View, H1, Text, Input, Form, Item } from 'native-base'
+import { Content, Button, View, H1, Text, Input, Icon, Form, Item } from 'native-base'
 import {connect} from 'react-redux'
 import { addDeck } from '../actions/decks';
 
@@ -10,7 +10,8 @@ class NewDeckScreen extends React.Component {
   }
 
   state = {
-    newDeckTitle: ''
+    newDeckTitle: '',
+    error: null
   }
 
   buttonDisabled = () => {
@@ -20,30 +21,57 @@ class NewDeckScreen extends React.Component {
   handleTitleChange = (text) => {
     this.setState(() => {
       return {
-        newDeckTitle: text
+        newDeckTitle: text.trim(),
+        error: null
       }
     })
   }
 
   handleSubmit = () => {
-    const {dispatch, navigation} = this.props
-    dispatch(addDeck(this.state.newDeckTitle))
-    navigation.navigate('DeckListScreen')
+    const {dispatch, navigation, decks} = this.props
+    const { newDeckTitle } = this.state
+
+    if(this.nameTaken()) {
+      this.setState(() => {
+        return {
+          error: 'Failed to save: deck name already taken.'
+        }
+      })
+    } else {
+      dispatch(addDeck(newDeckTitle))
+      navigation.navigate('DeckListScreen')
+    }
+  }
+
+  nameTaken = () => {
+    const {decks} = this.props
+    const { newDeckTitle } = this.state
+
+    return Object.keys(decks).filter(key => {
+      return key.toLowerCase() === newDeckTitle.toLowerCase()
+    }).length > 0
   }
 
   render() {
     return(
-      // <Content>
         <View  style={styles.container}>
           <H1>New Deck</H1>
-          <Item regular style={styles.input}>
-            <Input placeholder='Deck Title' onChangeText={text => this.handleTitleChange(text)} />
+          <Item regular
+            style={styles.input}
+            error={this.state.error !== null}
+            regular={this.state.error === null}
+          >
+            <Input
+              placeholder='Deck Title'
+              onChangeText={text => this.handleTitleChange(text)}
+            />
+            {!!this.state.error && <Icon type="FontAwesome" name='times-circle' style={styles.error}/>}
           </Item>
+          {!!this.state.error && <Text style={styles.error}>{this.state.error}</Text>}
           <Button primary disabled={this.buttonDisabled()} style={styles.button} onPress={() => this.handleSubmit() }>
             <Text>Add Deck</Text>
           </Button>
         </View>
-      // </Content>
     )
   }
 }
@@ -64,7 +92,16 @@ const styles = StyleSheet.create({
     margin: 5,
     marginTop: 15
 
+  },
+  error: {
+    color: 'red'
   }
 })
 
-export default connect()(NewDeckScreen)
+function mapStateToProps({decks}) {
+  return {
+    decks: decks
+  }
+}
+
+export default connect(mapStateToProps)(NewDeckScreen)
