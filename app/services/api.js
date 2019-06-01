@@ -46,7 +46,18 @@ export function newDeck(deck) {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
     deck
   }))
-    .then((deck) => {
+    .then((_) => {
       return deck
     })
+}
+
+export function newQuestion(question, id) {
+  return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify({
+    [id]: {
+      questions: [id][questions].concat(question)
+    }
+  }))
+    .then((question) => {
+      return question
+  })
 }

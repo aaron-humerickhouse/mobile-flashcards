@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native';
 import { Textarea, Button, View, H1, Text, Input, Icon, Form, Item } from 'native-base'
 import {connect} from 'react-redux'
-import { addQuestion } from './../actions/decks'
+import { handleAddQuestion } from './../actions/decks'
 
 class NewDeckScreen extends React.Component {
   static navigationOptions = {
@@ -40,16 +40,17 @@ class NewDeckScreen extends React.Component {
     const {id, dispatch, navigation} = this.props
     const {newQuestion, newAnswer} = this.state
 
-    console.log('question: ', newQuestion.text)
-    console.log('answer: ', newAnswer.text)
     if(this.questionPresent()) {
       this.setState(() => {
         return {
-          error: 'Failed to save: question already included.'
+          newQuestion: {
+            text: '',
+            error: 'Failed to save: question already included.'
+          }
         }
       })
     } else {
-      dispatch(addQuestion({
+      dispatch(handleAddQuestion({
         question: newQuestion.text,
         answer: newAnswer.text
       }, id))
@@ -77,8 +78,10 @@ class NewDeckScreen extends React.Component {
             placeholder='Question Text'
             onChangeText={text => this.handleFieldChange('newQuestion', text)}
             style={styles.input}
-            error={!!newQuestion.error}
           />
+          {newQuestion.error !== null && <Text style={styles.error}>
+            {newQuestion.error}
+          </Text>}
 
           <Textarea rowSpan={3} bordered
             placeholder='Answer Text'

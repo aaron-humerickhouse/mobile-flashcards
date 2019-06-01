@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native';
 import { Button, View, H1, Text, Input, Icon, Form, Item } from 'native-base'
 import {connect} from 'react-redux'
-import { addDeck } from '../actions/decks';
+import { handleAddDeck } from '../actions/decks';
 
 class NewDeckScreen extends React.Component {
   static navigationOptions = {
@@ -38,7 +38,7 @@ class NewDeckScreen extends React.Component {
         }
       })
     } else {
-      dispatch(addDeck(newDeckTitle))
+      dispatch(handleAddDeck(newDeckTitle))
       navigation.navigate('DeckListScreen')
     }
   }

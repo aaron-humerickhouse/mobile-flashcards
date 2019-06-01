@@ -32,11 +32,11 @@ export function addDeck(deck) {
   }
 }
 
-export function handleAddDeck() {
+export function handleAddDeck(deck) {
   return (dispatch) => {
     return newDeck(deck)
       .then((deck) => {
-        dispatch(addDeck(JSON.parse(deck)))
+        dispatch(addDeck(deck))
       })
   }
 }
@@ -49,9 +49,9 @@ export function addQuestion(question, id) {
   }
 }
 
-export function handleAddQuestion(question) {
+export function handleAddQuestion(question, id) {
   return (dispatch) => {
-    return newQuestion(question)
+    return newQuestion(question, id)
       .then((question) => {
         dispatch(addQuestion(JSON.parse(question)))
       })
