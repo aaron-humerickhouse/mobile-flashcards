@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native';
-import { Content, Button, View, H1, Text, Input, Icon, Form, Item } from 'native-base'
+import { Button, View, H1, Text, Input, Icon, Form, Item } from 'native-base'
 import {connect} from 'react-redux'
 import { addDeck } from '../actions/decks';
 

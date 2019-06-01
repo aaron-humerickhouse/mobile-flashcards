@@ -15,6 +15,11 @@ class DeckScreen extends React.Component {
     return deck.questions.length
   }
 
+  navigateToNewQuestion = () => {
+    const {navigation, id} = this.props
+    navigation.navigate({routeName: 'NewQuestionScreen', params: {id: id}})
+  }
+
   render() {
     const {deck} = this.props
     return(
@@ -26,7 +31,7 @@ class DeckScreen extends React.Component {
           </Text>
         </View>
         <View style={styles.padded}>
-          <Button light style={styles.button}>
+          <Button light style={styles.button} onPress={() => this.navigateToNewQuestion()}>
             <Text>Add Card</Text>
           </Button>
           <Button primary style={styles.button}>
@@ -58,7 +63,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps({decks}, props) {
   return {
-    deck: decks[props.navigation.state.params.id]
+    deck: decks[props.navigation.state.params.id],
+    id: props.navigation.state.params.id
   }
 }
 
