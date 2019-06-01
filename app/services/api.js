@@ -41,3 +41,12 @@ export function getDecks() {
       return decks
     })
 }
+
+export function newDeck(deck) {
+  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+    deck
+  }))
+    .then((deck) => {
+      return deck
+    })
+}

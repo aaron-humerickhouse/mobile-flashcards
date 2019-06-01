@@ -1,4 +1,4 @@
-import { getDecks as apiGetDecks } from '../services/api'
+import { getDecks as apiGetDecks, newDeck } from '../services/api'
 
 export const GET_DECKS = 'GET_DECKS'
 export const ADD_DECK = 'ADD_DECK'
@@ -15,6 +15,27 @@ export function handleGetDecks() {
     return apiGetDecks()
       .then((decks) => {
         dispatch(getDecks(JSON.parse(decks)))
+      })
+  }
+}
+
+export function addDeck(deck) {
+  return {
+    type: ADD_DECK,
+    deck: {
+      [deck]: {
+        title: deck,
+        questions: []
+      }
+    }
+  }
+}
+
+export function handleAddDeck() {
+  return (dispatch) => {
+    return newDeck(deck)
+      .then((deck) => {
+        dispatch(addDeck(JSON.parse(deck)))
       })
   }
 }

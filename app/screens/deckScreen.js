@@ -22,7 +22,7 @@ class DeckScreen extends React.Component {
         <View style={[styles.centerText, styles.padded]}>
           <H1>{deck.title}</H1>
           <Text>
-            {this.questionLength()} card{this.questionLength() > 1 ? 's' : ''}
+            {this.questionLength()} card{this.questionLength() != 1 ? 's' : ''}
           </Text>
         </View>
         <View style={styles.padded}>

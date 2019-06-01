@@ -8,7 +8,7 @@ const AppNavigator = createStackNavigator({
   DeckScreen: {screen: DeckScreen},
   NewDeckScreen: {screen: NewDeckScreen}
 }, {
-  initialRouteName: 'NewDeckScreen'
+  initialRouteName: 'DeckListScreen'
 });
 
 export default AppNavigator
