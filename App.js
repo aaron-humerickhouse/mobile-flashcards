@@ -5,6 +5,7 @@ import rootReducer from './app/reducers'
 import middleware from './app/middleware'
 import { createAppContainer} from 'react-navigation';
 import AppNavigator from './app/components/appNavigator';
+import { Container } from 'native-base'
 
 const store = createStore(rootReducer, middleware)
 
@@ -13,7 +14,9 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <AppContainer />
+        <Container>
+          <AppContainer />
+        </Container>
       </Provider>
     );
   }

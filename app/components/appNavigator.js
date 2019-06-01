@@ -1,14 +1,14 @@
 import { createStackNavigator } from "react-navigation";
 import DeckListScreen from './../screens/deckListScreen'
 import DeckScreen from './../screens/deckScreen'
-import AddDeckScreen from './../screens/addDeckScreen'
+import NewDeckScreen from '../screens/newDeckScreen'
 
 const AppNavigator = createStackNavigator({
   DeckListScreen: {screen: DeckListScreen},
   DeckScreen: {screen: DeckScreen},
-  AddDeckScreen: {screen: AddDeckScreen}
+  NewDeckScreen: {screen: NewDeckScreen}
 }, {
-  initialRouteName: 'DeckListScreen'
+  initialRouteName: 'NewDeckScreen'
 });
 
 export default AppNavigator

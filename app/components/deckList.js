@@ -2,16 +2,20 @@ import React from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Card, CardItem, Body, Icon, Text } from 'native-base'
 import { connect } from 'react-redux'
-import { handleInitialData } from '../actions/shared';
 import DeckCard from './deckCard'
 
 class DeckList extends React.Component {
+  navigateToAddDeck = () => {
+    const { navigate } = this.props.navigation
+    navigate({ routeName: "NewDeckScreen"})
+  }
+
   render() {
     const { loading, decks } = this.props
     return(
       <View style={styles.container}>
         <Card style={styles.card}>
-          <CardItem button>
+          <CardItem button onPress={ () => this.navigateToAddDeck()}>
             <Body style={styles.cardBody}>
               <Icon type='FontAwesome' name='plus-circle' style={{margin: 2}}/>
               <Text>Add Deck</Text>
