@@ -20,6 +20,11 @@ class DeckScreen extends React.Component {
     navigation.navigate({routeName: 'NewQuestionScreen', params: {id: id}})
   }
 
+  navigateToStartQuiz = () => {
+    const {navigation, id} = this.props
+    navigation.navigate({routeName: 'QuizScreen', params: {id: id, index: 0, score: 0}})
+  }
+
   render() {
     const {deck} = this.props
     return(
@@ -34,7 +39,7 @@ class DeckScreen extends React.Component {
           <Button light style={styles.button} onPress={() => this.navigateToNewQuestion()}>
             <Text>Add Card</Text>
           </Button>
-          <Button primary style={styles.button}>
+          <Button primary style={styles.button} onPress={() => this.navigateToStartQuiz()}>
             <Text>Start Quiz</Text>
           </Button>
         </View>
