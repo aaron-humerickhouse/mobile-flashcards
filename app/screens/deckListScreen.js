@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import DeckList from './../components/deckList'
 import {connect} from 'react-redux'
 import { handleInitialData} from './../actions/shared'
+import { clearLocalNotification } from '../utils/notifications';
 
 class DeckListScreen extends React.Component {
   static navigationOptions = {
@@ -12,7 +13,7 @@ class DeckListScreen extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(handleInitialData())
-
+    clearLocalNotification()
   }
 
   render() {

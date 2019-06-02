@@ -12,7 +12,7 @@ class DeckCard extends React.Component {
 
   navigateToDeckScreen = () => {
     const { navigation, id } = this.props
-    const animationTime = 500
+    const animationTime = 750
     const {opacity} = this.state
 
     Animated.timing(
