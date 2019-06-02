@@ -13,6 +13,7 @@ class DeckCard extends React.Component {
   navigateToDeckScreen = () => {
     const { navigation, id } = this.props
     const animationTime = 500
+    const {opacity} = this.state
 
     Animated.timing(
       this.state.opacity,
@@ -24,8 +25,10 @@ class DeckCard extends React.Component {
 
     setTimeout(() => {
       navigation.dispatch(
-      NavigationActions.navigate({ routeName: "DeckScreen", params: { id: id} })
-    )}, animationTime)
+        NavigationActions.navigate({ routeName: "DeckScreen", params: { id: id} })
+      )
+      opacity.setValue(1) //Reset in case of back navigation
+    }, animationTime)
   }
 
   render() {
