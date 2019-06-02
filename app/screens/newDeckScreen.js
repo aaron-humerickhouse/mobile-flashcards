@@ -39,7 +39,9 @@ class NewDeckScreen extends React.Component {
       })
     } else {
       dispatch(handleAddDeck(newDeckTitle))
-      navigation.navigate('DeckListScreen')
+      .then(() => {
+        navigation.navigate({routeName: 'DeckScreen', params: {id: newDeckTitle}})
+      })
     }
   }
 
