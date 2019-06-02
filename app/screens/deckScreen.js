@@ -39,7 +39,12 @@ class DeckScreen extends React.Component {
           <Button light style={styles.button} onPress={() => this.navigateToNewQuestion()}>
             <Text>Add Card</Text>
           </Button>
-          <Button primary style={styles.button} onPress={() => this.navigateToStartQuiz()}>
+          <Button
+            primary
+            style={styles.button}
+            onPress={() => this.navigateToStartQuiz()}
+            disabled={this.questionLength() === 0}
+          >
             <Text>Start Quiz</Text>
           </Button>
         </View>
@@ -62,7 +67,8 @@ const styles = StyleSheet.create({
     padding: 50
   },
   button: {
-    margin: 5
+    margin: 5,
+    alignSelf: 'center'
   }
 })
 

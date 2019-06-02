@@ -1,25 +1,27 @@
 import React from 'react'
 import { Button, Card, CardItem, Body, Text} from 'native-base';
-import {StyleSheet, Animated, View} from 'react-native'
+import {StyleSheet, Animated, Easing} from 'react-native'
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
 
 class DeckCard extends React.Component {
   state = {
-    opacity: new Animated.Value(1)
+    scaleValue: new Animated.Value(0)
   }
+
 
   navigateToDeckScreen = () => {
     const { navigation, id } = this.props
-    const animationTime = 750
-    const {opacity} = this.state
+    const animationTime = 250
+    const {scaleValue} = this.state
 
     Animated.timing(
-      this.state.opacity,
+      this.state.scaleValue,
       {
-        toValue: 0,
-        duration: animationTime
+        toValue: 1,
+        duration: animationTime,
+        easing: Easing.easeOutBack
       }
     ).start();
 
@@ -27,23 +29,33 @@ class DeckCard extends React.Component {
       navigation.dispatch(
         NavigationActions.navigate({ routeName: "DeckScreen", params: { id: id} })
       )
-      opacity.setValue(1) //Reset in case of back navigation
+      scaleValue.setValue(0) //Reset in case of back navigation
     }, animationTime)
   }
 
   render() {
     const { deck } = this.props
-    const { opacity } = this.state;
+    const { scaleValue } = this.state;
+
+    const cardScale = scaleValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [1, 5]
+    });
 
     return(
         <Card style={styles.card}>
-                <Animated.View style={{ opacity: opacity }}>
-
-          <CardItem button onPress={() => this.navigateToDeckScreen()}>
-            <Body style={styles.cardBody}>
-                <Text>{deck['title']}</Text>
-            </Body>
-          </CardItem>
+          <Animated.View style={[
+            {
+                transform: [
+                    {scale: cardScale}
+                ]
+            }
+          ]}>
+            <CardItem button onPress={() => this.navigateToDeckScreen()}>
+              <Body style={styles.cardBody}>
+                  <Text>{deck['title']}</Text>
+              </Body>
+            </CardItem>
           </Animated.View>
         </Card>
     )

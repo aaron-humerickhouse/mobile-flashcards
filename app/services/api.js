@@ -28,18 +28,19 @@ const INITIAL_DATA = {
 
 export function setInitialData() {
   return getDecks()
-    // If present return decks
-    .then(decks => { return decks })
-
-    //Otherwise set with initial data
-    .catch(()=>{
-      AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(INITIAL_DATA))
+    .then(decks => {
+      console.log('decks: ', decks)
+      if(decks === null) {
+        AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(INITIAL_DATA))
         .then((_) => {
           return new Promise((res,rej) => {
             res(INITIAL_DATA)
           })
         })
-      })
+      } else {
+        return decks
+      }
+    })
 
     // //Debugging to reset async storage
     // return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(INITIAL_DATA))
