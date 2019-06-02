@@ -1,29 +1,48 @@
 import React from 'react'
 import { Button, Card, CardItem, Body, Text} from 'native-base';
-import {StyleSheet} from 'react-native'
+import {StyleSheet, Animated, View} from 'react-native'
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
 
 class DeckCard extends React.Component {
+  state = {
+    opacity: new Animated.Value(1)
+  }
+
   navigateToDeckScreen = () => {
     const { navigation, id } = this.props
-    navigation.dispatch(
+    const animationTime = 500
+
+    Animated.timing(
+      this.state.opacity,
+      {
+        toValue: 0,
+        duration: animationTime
+      }
+    ).start();
+
+    setTimeout(() => {
+      navigation.dispatch(
       NavigationActions.navigate({ routeName: "DeckScreen", params: { id: id} })
-    );
+    )}, animationTime)
   }
 
   render() {
     const { deck } = this.props
+    const { opacity } = this.state;
 
     return(
-      <Card style={styles.card}>
-        <CardItem button onPress={() => this.navigateToDeckScreen()}>
-          <Body style={styles.cardBody}>
-              <Text>{deck['title']}</Text>
-          </Body>
-        </CardItem>
-      </Card>
+        <Card style={styles.card}>
+                <Animated.View style={{ opacity: opacity }}>
+
+          <CardItem button onPress={() => this.navigateToDeckScreen()}>
+            <Body style={styles.cardBody}>
+                <Text>{deck['title']}</Text>
+            </Body>
+          </CardItem>
+          </Animated.View>
+        </Card>
     )
   }
 }

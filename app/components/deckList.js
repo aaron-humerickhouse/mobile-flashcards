@@ -1,6 +1,6 @@
 import React from 'react'
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { Card, CardItem, Body, Icon, Text } from 'native-base'
+import { ActivityIndicator, StyleSheet } from 'react-native';
+import { Card, CardItem, Body, Icon, Text, Content, View } from 'native-base'
 import { connect } from 'react-redux'
 import DeckCard from './deckCard'
 
@@ -13,23 +13,26 @@ class DeckList extends React.Component {
   render() {
     const { loading, decks } = this.props
     return(
-      <View style={styles.container}>
-        <Card style={styles.card}>
-          <CardItem button onPress={ () => this.navigateToAddDeck()}>
-            <Body style={styles.cardBody}>
-              <Icon type='FontAwesome' name='plus-circle' style={{margin: 2}}/>
-              <Text>Add Deck</Text>
-            </Body>
-          </CardItem>
-        </Card>
-
-        {
-          loading && <ActivityIndicator size="large" />
-        }
-        {
-          !loading && Object.keys(decks).map( id => <DeckCard key={id} id={id} navigation={this.props.navigation}/>)
-        }
-      </View>
+      <Content>
+        <View style={styles.container}>
+          <Card style={styles.card}>
+            <CardItem button onPress={ () => this.navigateToAddDeck()}>
+              <Body style={styles.cardBody}>
+                <Icon type='FontAwesome' name='plus-circle' style={{margin: 2}}/>
+                <Text>Add Deck</Text>
+              </Body>
+            </CardItem>
+          </Card>
+          {
+            loading && <ActivityIndicator size="large" />
+          }
+          {
+            !loading && Object.keys(decks).map( id =>
+              <DeckCard key={id} id={id} navigation={this.props.navigation}/>
+            )
+          }
+        </View>
+      </Content>
     )
   }
 }
