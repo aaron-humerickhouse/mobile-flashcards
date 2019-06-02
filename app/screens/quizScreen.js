@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
-import { Content, Text, Button, Card, CardItem, Body } from 'native-base'
+import { Content, Text, Button } from 'native-base'
 import {connect} from 'react-redux'
 import Flashcard from './../components/flashcard'
 

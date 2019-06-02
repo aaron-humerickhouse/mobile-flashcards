@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native';
-import { Button, View, H1, Text, Input, Icon, Form, Item } from 'native-base'
+import { Button, View, H1, Text, Input, Icon, Item } from 'native-base'
 import {connect} from 'react-redux'
 import { handleAddDeck } from '../actions/decks';
 
@@ -28,7 +28,7 @@ class NewDeckScreen extends React.Component {
   }
 
   handleSubmit = () => {
-    const {dispatch, navigation, decks} = this.props
+    const {dispatch, navigation} = this.props
     const { newDeckTitle } = this.state
 
     if(this.nameTaken()) {

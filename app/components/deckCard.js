@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, CardItem, Body, Text} from 'native-base';
+import { Card, CardItem, Body, Text} from 'native-base';
 import {StyleSheet, Animated, Easing} from 'react-native'
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';

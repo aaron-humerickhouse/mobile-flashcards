@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native';
-import { Textarea, Button, View, H1, Text, Input, Icon, Form, Item } from 'native-base'
+import { Textarea, Button, View, H1, Text } from 'native-base'
 import {connect} from 'react-redux'
 import { handleAddQuestion } from './../actions/decks'
 
